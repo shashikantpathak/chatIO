@@ -1,3 +1,20 @@
+var probe = require('pmx').probe();
+
+var counter = 0;
+
+var metric = probe.metric({
+  name    : 'Realtime user',
+  value   : function() {
+    return counter;
+  }
+});
+
+setInterval(function() {
+  counter++;
+}, 100);
+
+
+
 var express = require('express'),
 	app = express(),
 	server = require('http').createServer(app),
