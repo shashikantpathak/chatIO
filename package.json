@@ -9,6 +9,7 @@
   "author": "Brad Traversy",
   "license": "ISC",
   "dependencies": {
+    "@pm2/io": "^2.3.0",
     "express": "*",
     "pm2": "^3.0.4",
     "pmx": "^1.6.7",

@@ -1,17 +1,33 @@
-var probe = require('pmx').probe();
+// const io = require('@pm2/io')
 
-var counter = 0;
+// io.init({
+//   metrics: {
+//     network: {
+//       ports: true
+//     }
+//   }
+// })
 
-var metric = probe.metric({
-  name    : 'Realtime user',
-  value   : function() {
-    return counter;
-  }
+var pmx = require('pmx');
+
+pmx.action('db:clean', function(param, reply) {
+  console.log(param);
+  reply({success : true});
 });
 
-setInterval(function() {
-  counter++;
-}, 100);
+pmx.init({
+	network       : true,  // Network monitoring at the application level
+	ports         : true,  // Shows which ports your app is listening on (default: false)
+  });
+  pmx.action('get:active_user', function(reply) {
+	User.find({realtime_connected : true }, function(err, users) {
+	  if (err)
+		return reply({success : false, err : err});
+	  return reply({users : users});
+	});
+  });
+
+ 
 
 
 
